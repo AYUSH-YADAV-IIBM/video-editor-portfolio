@@ -1,0 +1,1124 @@
+<head>
+
+<meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PriyatamEdits | Premium Video Editing Services</title>
+
+<meta name="description" content="Professional YouTube, Reels, Shorts, Wedding, Podcast & Commercial Video Editing Services.">
+
+<meta name="keywords" content="Video Editing, YouTube Editor, Reels Editing, Shorts Editing, Wedding Editing, PriyatamEdits">
+
+<meta name="author" content="PriyatamEdits">
+
+<meta name="robots" content="index, follow">
+
+<meta name="theme-color" content="#0B0C0F">
+
+<meta name="color-scheme" content="dark light">
+
+<link rel="canonical" href="https://priyatamedits.com">
+
+<!-- Open Graph -->
+
+<meta property="og:type" content="website">
+
+<meta property="og:title" content="PriyatamEdits">
+
+<meta property="og:description" content="Premium Video Editing Studio">
+
+<meta property="og:image" content="/assets/og-image.jpg">
+
+<meta property="og:url" content="https://priyatamedits.com">
+
+<!-- Twitter -->
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:title" content="PriyatamEdits">
+
+<meta name="twitter:description" content="Professional Video Editing">
+
+<meta name="twitter:image" content="/assets/og-image.jpg">
+
+<!-- Favicon -->
+
+<link rel="icon" href="assets/favicon.ico">
+
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+
+<link rel="manifest" href="manifest.json">
+
+<!-- Performance -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- Razorpay -->
+
+<script defer src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<!-- Supabase -->
+
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --bg:#0B0C0F;
+    --bg-alt:#14161B;
+    --panel:#1A1D23;
+    --line: rgba(242,239,233,0.10);
+    --text:#F2EFE9;
+    --muted:#9A9CA3;
+    --amber:#E8A33D;
+    --amber-dim: rgba(232,163,61,0.15);
+    --teal:#2CBFAE;
+    --teal-dim: rgba(44,191,174,0.15);
+    --danger:#E8583D;
+    --radius: 14px;
+    --glass: rgba(26,29,35,0.55);
+  }
+  [data-theme="light"]{
+    --bg:#F4F2ED;
+    --bg-alt:#EAE7E0;
+    --panel:#FFFFFF;
+    --line: rgba(11,12,15,0.10);
+    --text:#14161B;
+    --muted:#63656C;
+    --glass: rgba(255,255,255,0.6);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    transition:background .4s ease, color .4s ease;
+  }
+  ::selection{ background:var(--amber); color:#0B0C0F; }
+  .display{ font-family:'Bebas Neue', sans-serif; letter-spacing:0.02em; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  a{ color:inherit; text-decoration:none; }
+  img,video{ max-width:100%; display:block; }
+  .wrap{ max-width:1240px; margin:0 auto; padding:0 24px; }
+  section{ position:relative; padding:120px 0; }
+  @media (max-width:768px){ section{ padding:80px 0; } }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.18em;
+    color:var(--amber); text-transform:uppercase; display:flex; align-items:center; gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{ content:''; width:22px; height:1px; background:var(--amber); display:inline-block; }
+  h2.section-title{ font-family:'Bebas Neue'; font-size:clamp(36px,5vw,64px); line-height:1; margin-bottom:16px; }
+  .section-sub{ color:var(--muted); max-width:560px; font-size:16px; line-height:1.6; }
+
+  /* ============ SCRUBBER (signature nav) ============ */
+  #scrubber{
+    position:fixed; top:0; left:0; right:0; height:46px; z-index:999;
+    background:var(--glass); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    display:flex; align-items:center; padding:0 18px; gap:18px;
+  }
+  #scrubber .brand{ font-family:'Bebas Neue'; font-size:20px; letter-spacing:0.05em; white-space:nowrap; }
+  #scrubber .brand span{ color:var(--amber); }
+  #scrubber .track{
+    position:relative; flex:1; height:20px; display:flex; align-items:center;
+  }
+  #scrubber .rule{
+    position:absolute; left:0; right:0; top:50%; height:1px; background:var(--line); transform:translateY(-50%);
+  }
+  #scrubber .fill{
+    position:absolute; left:0; top:50%; height:1px; background:var(--amber); transform:translateY(-50%); width:0%;
+    transition:width .1s linear;
+  }
+  #scrubber .kf{
+    position:absolute; top:50%; width:9px; height:9px; background:var(--bg); border:1px solid var(--amber);
+    transform:translate(-50%,-50%) rotate(45deg); cursor:pointer; transition:.2s;
+  }
+  #scrubber .kf.active{ background:var(--amber); }
+  #scrubber .kf:hover{ transform:translate(-50%,-50%) rotate(45deg) scale(1.4); }
+  #scrubber .kf .label{
+    position:absolute; top:16px; left:50%; transform:translateX(-50%) rotate(-45deg); font-size:10px;
+    font-family:'JetBrains Mono'; color:var(--muted); white-space:nowrap; opacity:0; transition:.2s; pointer-events:none;
+  }
+  #scrubber .kf:hover .label{ opacity:1; }
+  #scrubber .tc{ font-family:'JetBrains Mono'; font-size:11px; color:var(--muted); white-space:nowrap; }
+  #scrubber .actions{ display:flex; align-items:center; gap:10px; }
+  .icon-btn{
+    width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:transparent;
+    color:var(--text); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:14px;
+    transition:.2s;
+  }
+  .icon-btn:hover{ border-color:var(--amber); color:var(--amber); }
+  .cart-badge{
+    position:absolute; top:-6px; right:-6px; background:var(--amber); color:#0B0C0F; font-size:9px;
+    width:15px; height:15px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;
+  }
+  @media (max-width:860px){ #scrubber .kf .label{ display:none; } #scrubber{ padding:0 12px; gap:10px; } }
+
+  /* ============ LOADER ============ */
+  #loader{
+    position:fixed; inset:0; background:#0B0C0F; z-index:2000; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:18px;
+  }
+  #loader .tc{ font-family:'JetBrains Mono'; color:#E8A33D; font-size:14px; letter-spacing:0.1em; }
+  #loader .bar{ width:220px; height:2px; background:rgba(255,255,255,0.15); position:relative; overflow:hidden; }
+  #loader .bar span{ position:absolute; left:0; top:0; bottom:0; width:0%; background:#E8A33D; }
+  #loader .word{ font-family:'Bebas Neue'; font-size:32px; color:#F2EFE9; letter-spacing:0.06em; }
+
+  /* ============ BUTTONS ============ */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:14px 26px;
+    border-radius:100px; font-weight:600; font-size:14px; cursor:pointer; border:1px solid transparent;
+    transition:.25s; white-space:nowrap;
+  }
+  .btn-primary{ background:var(--amber); color:#0B0C0F; }
+  .btn-primary:hover{ background:#F2B65A; transform:translateY(-2px); }
+  .btn-ghost{ border-color:var(--line); color:var(--text); background:transparent; }
+  .btn-ghost:hover{ border-color:var(--amber); color:var(--amber); }
+  .btn-sm{ padding:9px 16px; font-size:12.5px; border-radius:8px; }
+  .btn-block{ width:100%; }
+
+  /* ============ HERO ============ */
+  #hero{
+    height:100vh; min-height:680px; display:flex; align-items:center; position:relative; overflow:hidden;
+    padding-top:46px;
+  }
+  #hero-canvas{ position:absolute; inset:0; z-index:0; opacity:0.55; }
+  #hero::after{
+    content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 30%, transparent 0%, var(--bg) 85%);
+    z-index:1; pointer-events:none;
+  }
+  .hero-inner{ position:relative; z-index:2; width:100%; }
+  .hero-tag{ font-family:'JetBrains Mono'; font-size:13px; color:var(--amber); letter-spacing:0.15em; margin-bottom:20px; }
+  .hero-title{
+    font-family:'Bebas Neue'; font-size:clamp(52px,10vw,132px); line-height:0.92; letter-spacing:0.01em;
+  }
+  .hero-title .line{ overflow:hidden; }
+  .hero-title .line span{ display:inline-block; }
+  .hero-title .accent{ color:var(--amber); font-style:normal; }
+  .hero-sub{ max-width:520px; color:var(--muted); font-size:17px; line-height:1.7; margin:26px 0 34px; }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+  .hero-stats{
+    display:flex; gap:50px; margin-top:70px; flex-wrap:wrap;
+  }
+  .stat b{ font-family:'Bebas Neue'; font-size:44px; color:var(--text); display:block; }
+  .stat span{ color:var(--muted); font-size:12px; font-family:'JetBrains Mono'; text-transform:uppercase; letter-spacing:0.08em; }
+  .scroll-cue{
+    position:absolute; bottom:28px; left:24px; display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono';
+    font-size:11px; color:var(--muted); z-index:2;
+  }
+  .scroll-cue .line{ width:1px; height:36px; background:var(--muted); position:relative; overflow:hidden; }
+  .scroll-cue .line i{ position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--amber); animation:scrolldrop 1.8s infinite; }
+  @keyframes scrolldrop{ to{ top:100%; } }
+
+  /* ============ MARQUEE ============ */
+  .marquee-wrap{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:26px 0; overflow:hidden; }
+  .marquee{ display:flex; gap:60px; width:max-content; animation:scroll 26s linear infinite; }
+  @keyframes scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  .marquee span{ font-family:'Bebas Neue'; font-size:26px; color:var(--muted); white-space:nowrap; letter-spacing:0.04em; }
+  .marquee span b{ color:var(--amber); }
+
+  /* ============ BEFORE/AFTER ============ */
+  .ba-card{
+    position:relative; border-radius:var(--radius); overflow:hidden; aspect-ratio:16/9; cursor:ew-resize;
+    border:1px solid var(--line); background:#000;
+  }
+  .ba-card .after, .ba-card .before{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'Bebas Neue'; font-size:32px; letter-spacing:0.05em;
+  }
+  .ba-card .before{ background:linear-gradient(135deg,#2a2a2a,#111); color:#666; filter:grayscale(1) contrast(0.8); }
+  .ba-card .after{ background:linear-gradient(135deg,#3a2410,#0d1f1c); color:var(--amber); overflow:hidden; }
+  .ba-card .after-clip{ position:absolute; inset:0; overflow:hidden; width:50%; }
+  .ba-card .after-clip .after-inner{ width:100vw; max-width:900px; height:100%; display:flex; align-items:center; justify-content:center; }
+  .ba-handle{
+    position:absolute; top:0; bottom:0; left:50%; width:2px; background:var(--amber); transform:translateX(-50%);
+    box-shadow:0 0 12px var(--amber);
+  }
+  .ba-handle::after{
+    content:'⇔'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:38px; height:38px;
+    background:var(--amber); color:#0B0C0F; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:15px; font-weight:700;
+  }
+  .ba-label{ position:absolute; top:14px; font-family:'JetBrains Mono'; font-size:11px; padding:4px 10px; border-radius:100px; background:rgba(0,0,0,0.5); backdrop-filter:blur(6px); z-index:3;}
+  .ba-label.l{ left:14px; } .ba-label.r{ right:14px; }
+
+  /* ============ GRID / CARDS ============ */
+  .grid{ display:grid; gap:22px; }
+  .g-3{ grid-template-columns:repeat(3,1fr); }
+  .g-4{ grid-template-columns:repeat(4,1fr); }
+  @media (max-width:960px){ .g-3,.g-4{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .g-3,.g-4{ grid-template-columns:1fr; } }
+
+  .glass-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:26px;
+    transition:.3s; position:relative; overflow:hidden;
+  }
+  .glass-card:hover{ transform:translateY(-6px); border-color:var(--amber); }
+  .glass-card:hover .glow{ opacity:1; }
+  .glow{
+    position:absolute; width:180px; height:180px; background:radial-gradient(circle, var(--amber-dim), transparent 70%);
+    top:-60px; right:-60px; opacity:0; transition:.4s; pointer-events:none;
+  }
+
+  /* filter tabs */
+  .tabs{ display:flex; gap:10px; flex-wrap:wrap; margin:36px 0 30px; }
+  .tab{
+    padding:9px 18px; border-radius:100px; border:1px solid var(--line); font-size:13px; cursor:pointer;
+    color:var(--muted); font-family:'JetBrains Mono'; transition:.2s;
+  }
+  .tab.active, .tab:hover{ border-color:var(--amber); color:var(--amber); }
+
+  /* demo card */
+  .demo-card{
+    border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); background:var(--panel);
+  }
+  .demo-thumb{
+    aspect-ratio:16/9; background:linear-gradient(135deg,var(--bg-alt),#000); position:relative; display:flex;
+    align-items:center; justify-content:center;
+  }
+  .demo-thumb .play{
+    width:52px; height:52px; border-radius:50%; background:rgba(232,163,61,0.15); border:1px solid var(--amber);
+    color:var(--amber); display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer; transition:.2s;
+  }
+  .demo-thumb .play:hover{ background:var(--amber); color:#0B0C0F; }
+  .demo-thumb .dur{
+    position:absolute; bottom:10px; right:10px; font-family:'JetBrains Mono'; font-size:11px; background:rgba(0,0,0,0.55);
+    padding:3px 8px; border-radius:4px;
+  }
+  .demo-thumb .cat{
+    position:absolute; top:10px; left:10px; font-family:'JetBrains Mono'; font-size:10px; text-transform:uppercase;
+    background:rgba(0,0,0,0.55); padding:3px 8px; border-radius:4px; color:var(--teal); letter-spacing:0.05em;
+  }
+  .demo-body{ padding:16px 18px; }
+  .demo-body h4{ font-size:15px; margin-bottom:8px; }
+  .demo-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .demo-tags span{ font-size:10px; font-family:'JetBrains Mono'; color:var(--muted); border:1px solid var(--line); padding:2px 7px; border-radius:4px; }
+
+  /* pricing */
+  .price-card{
+    border:1px solid var(--line); border-radius:var(--radius); padding:32px 26px; background:var(--panel);
+    display:flex; flex-direction:column; position:relative; transition:.3s;
+  }
+  .price-card.featured{ border-color:var(--amber); box-shadow:0 0 0 1px var(--amber), 0 20px 60px -20px var(--amber-dim); }
+  .price-card .badge{ position:absolute; top:-12px; left:26px; background:var(--amber); color:#0B0C0F; font-size:11px; font-family:'JetBrains Mono'; padding:3px 12px; border-radius:100px; font-weight:700; }
+  .price-card h3{ font-family:'Bebas Neue'; font-size:26px; letter-spacing:0.04em; }
+  .price-card .amt{ font-family:'Bebas Neue'; font-size:48px; margin:14px 0 4px; }
+  .price-card .amt span{ font-size:14px; font-family:'Inter'; color:var(--muted); }
+  .price-card ul{ list-style:none; margin:22px 0; flex:1; }
+  .price-card ul li{ padding:9px 0; border-bottom:1px dashed var(--line); font-size:13.5px; color:var(--muted); display:flex; gap:8px; }
+  .price-card ul li::before{ content:'✓'; color:var(--amber); font-weight:700; }
+  .price-actions{ display:flex; flex-direction:column; gap:8px; }
+  .price-actions .row{ display:flex; gap:8px; }
+  .link-row{ display:flex; justify-content:space-between; margin-top:10px; }
+  .link-btn{ font-size:11.5px; color:var(--muted); font-family:'JetBrains Mono'; cursor:pointer; background:none; border:none; }
+  .link-btn:hover{ color:var(--amber); }
+
+  /* order form */
+  .order-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:36px; }
+  @media (max-width:900px){ .order-grid{ grid-template-columns:1fr; } }
+  .field{ margin-bottom:18px; }
+  .field label{ display:block; font-size:12px; font-family:'JetBrains Mono'; color:var(--muted); margin-bottom:7px; text-transform:uppercase; letter-spacing:0.05em; }
+  select, input[type=text], input[type=email], input[type=number], textarea{
+    width:100%; background:var(--bg-alt); border:1px solid var(--line); color:var(--text); padding:11px 13px;
+    border-radius:8px; font-family:'Inter'; font-size:14px; outline:none; transition:.2s;
+  }
+  select:focus, input:focus, textarea:focus{ border-color:var(--amber); }
+  .chip-group{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{ padding:8px 14px; border:1px solid var(--line); border-radius:100px; font-size:12.5px; cursor:pointer; color:var(--muted); user-select:none; transition:.2s; }
+  .chip.on{ border-color:var(--teal); color:var(--teal); background:var(--teal-dim); }
+  .field-2col{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .upload-box{
+    border:1.5px dashed var(--line); border-radius:12px; padding:34px; text-align:center; color:var(--muted);
+    cursor:pointer; transition:.2s; font-size:13px;
+  }
+  .upload-box:hover{ border-color:var(--amber); color:var(--amber); }
+  .summary-card{
+    position:sticky; top:70px; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:26px;
+  }
+  .summary-line{ display:flex; justify-content:space-between; font-size:13.5px; padding:9px 0; border-bottom:1px dashed var(--line); color:var(--muted); }
+  .summary-total{ display:flex; justify-content:space-between; font-family:'Bebas Neue'; font-size:30px; margin-top:16px; }
+  .summary-total span:last-child{ color:var(--amber); }
+
+  /* testimonials */
+  .testi-card{ border:1px solid var(--line); border-radius:var(--radius); padding:26px; background:var(--panel); }
+  .testi-card .stars{ color:var(--amber); letter-spacing:2px; margin-bottom:12px; font-size:13px; }
+  .testi-card p{ color:var(--muted); font-size:14.5px; line-height:1.7; margin-bottom:18px; }
+  .testi-who{ display:flex; align-items:center; gap:10px; }
+  .avatar{ width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,var(--amber),var(--teal)); flex-shrink:0; }
+  .testi-who b{ font-size:13.5px; display:block; }
+  .testi-who span{ font-size:11.5px; color:var(--muted); }
+
+  /* faq */
+  .faq-item{ border-bottom:1px solid var(--line); padding:20px 0; cursor:pointer; }
+  .faq-q{ display:flex; justify-content:space-between; align-items:center; font-size:15.5px; font-weight:600; }
+  .faq-q .plus{ font-family:'JetBrains Mono'; color:var(--amber); transition:.3s; }
+  .faq-item.open .plus{ transform:rotate(45deg); }
+  .faq-a{ max-height:0; overflow:hidden; transition:.3s; color:var(--muted); font-size:14px; line-height:1.7; }
+  .faq-item.open .faq-a{ max-height:200px; padding-top:12px; }
+
+  /* footer */
+  footer{ border-top:1px solid var(--line); padding:70px 0 30px; }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:40px; margin-bottom:60px; }
+  @media (max-width:800px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid h5{ font-family:'JetBrains Mono'; font-size:12px; text-transform:uppercase; color:var(--muted); margin-bottom:16px; letter-spacing:0.08em; }
+  .foot-grid ul{ list-style:none; }
+  .foot-grid li{ margin-bottom:10px; font-size:13.5px; color:var(--muted); }
+  .foot-grid li:hover{ color:var(--amber); cursor:pointer; }
+  .foot-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; border-top:1px solid var(--line); padding-top:26px; font-size:12px; color:var(--muted); font-family:'JetBrains Mono'; }
+
+  /* CART DRAWER */
+  #overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(3px); z-index:1500; opacity:0; pointer-events:none; transition:.3s; }
+  #overlay.show{ opacity:1; pointer-events:auto; }
+  #cart-drawer{
+    position:fixed; top:0; right:0; bottom:0; width:400px; max-width:92vw; background:var(--bg-alt); z-index:1600;
+    transform:translateX(100%); transition:.35s cubic-bezier(.2,.9,.3,1); display:flex; flex-direction:column;
+    border-left:1px solid var(--line);
+  }
+  #cart-drawer.show{ transform:translateX(0); }
+  .cart-head{ padding:22px 22px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; }
+  .cart-head h3{ font-family:'Bebas Neue'; font-size:22px; }
+  .cart-body{ flex:1; overflow-y:auto; padding:18px 22px; }
+  .cart-item{ display:flex; justify-content:space-between; align-items:flex-start; padding:14px 0; border-bottom:1px dashed var(--line); gap:10px; }
+  .cart-item .qty{ display:flex; align-items:center; gap:8px; margin-top:6px; }
+  .qty-btn{ width:22px; height:22px; border:1px solid var(--line); background:transparent; color:var(--text); border-radius:5px; cursor:pointer; font-size:12px; }
+  .cart-foot{ padding:18px 22px; border-top:1px solid var(--line); }
+  .coupon-row{ display:flex; gap:8px; margin-bottom:14px; }
+  .empty-cart{ text-align:center; color:var(--muted); padding:60px 20px; font-size:13.5px; }
+
+  /* Toast */
+  #toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--panel);
+    border:1px solid var(--amber); color:var(--text); padding:12px 22px; border-radius:100px; font-size:13px;
+    z-index:2500; opacity:0; transition:.3s; pointer-events:none; display:flex; align-items:center; gap:8px;
+  }
+  #toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* Modal (checkout / invoice mock) */
+  #modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1800; display:none; align-items:center; justify-content:center; padding:20px; }
+  #modal-overlay.show{ display:flex; }
+  .modal-box{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); max-width:440px; width:100%; padding:30px; }
+  .modal-box h3{ font-family:'Bebas Neue'; font-size:24px; margin-bottom:6px; }
+  .modal-box p{ color:var(--muted); font-size:13.5px; margin-bottom:18px; line-height:1.6; }
+  .pay-methods{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+  .pay-methods div{ border:1px solid var(--line); padding:12px; border-radius:8px; text-align:center; font-size:12.5px; cursor:pointer; }
+  .pay-methods div:hover, .pay-methods div.sel{ border-color:var(--amber); color:var(--amber); }
+  .invoice-line{ display:flex; justify-content:space-between; font-size:12.5px; color:var(--muted); padding:6px 0; font-family:'JetBrains Mono'; }
+
+  ::-webkit-scrollbar{ width:8px; } ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
+</style>
+</head>
+<body>
+
+<!-- ===== LOADER ===== -->
+<div id="loader">
+  <div class="word">PRIYATAM<span style="color:#E8A33D">EDITS</span></div>
+  <div class="bar"><span id="loaderbar"></span></div>
+  <div class="tc" id="loadertc">00:00:00:00</div>
+</div>
+
+<!-- ===== SIGNATURE TIMELINE SCRUBBER NAV ===== -->
+<nav id="scrubber">
+  <div class="brand">PRIYATAM<span>EDITS</span></div>
+  <div class="track" id="track">
+    <div class="rule"></div>
+    <div class="fill" id="scrub-fill"></div>
+    <!-- keyframes injected by JS -->
+  </div>
+  <div class="tc" id="scrub-tc">00:00</div>
+  <div class="actions">
+    <button class="icon-btn" id="theme-toggle" title="Toggle theme">◐</button>
+    <a class="icon-btn" href="admin/admin.html" title="Admin login" style="text-decoration:none;">🔒</a>
+    <button class="icon-btn" id="cart-open" style="position:relative;" title="Cart">
+      🛒<span class="cart-badge" id="cart-count">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="home" data-section="Home">
+  <canvas id="hero-canvas"></canvas>
+  <div class="wrap hero-inner">
+    <div class="hero-tag mono">FRAME BY FRAME, MADE CINEMATIC</div>
+    <h1 class="hero-title">
+      <div class="line"><span>We cut stories</span></div>
+      <div class="line"><span>that <i class="accent">hold</i> attention.</span></div>
+    </h1>
+    <p class="hero-sub">Priyatamedits is a premium editing house for creators, brands and filmmakers — YouTube, Reels, podcasts, weddings and full-length films, delivered with color, sound and motion that feel intentional.</p>
+    <div class="hero-ctas">
+      <a href="#pricing" class="btn btn-primary">Start a Project →</a>
+      <a href="#gallery" class="btn btn-ghost">Watch Showreel</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><b class="counter" data-target="3200">0</b><span>Videos Edited</span></div>
+      <div class="stat"><b class="counter" data-target="480">0</b><span>Creators Served</span></div>
+      <div class="stat"><b class="counter" data-target="97">0</b><span>% Retention Rate</span></div>
+      <div class="stat"><b class="counter" data-target="24">0</b><span>Hr Avg. Turnaround</span></div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="line"><i></i></div>SCROLL</div>
+</section>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee-wrap">
+  <div class="marquee" id="marquee">
+    <span>GAMING <b>·</b></span><span>YOUTUBE <b>·</b></span><span>REELS <b>·</b></span><span>SHORTS <b>·</b></span>
+    <span>PODCASTS <b>·</b></span><span>WEDDING <b>·</b></span><span>CINEMATIC <b>·</b></span><span>TRAVEL <b>·</b></span>
+    <span>COMMERCIAL <b>·</b></span><span>DOCUMENTARY <b>·</b></span>
+  </div>
+</div>
+
+<!-- ===== BEFORE / AFTER ===== -->
+<section id="work" data-section="Work">
+  <div class="wrap">
+    <div class="eyebrow">Featured Work</div>
+    <h2 class="section-title">Raw footage vs. the final grade</h2>
+    <p class="section-sub">Drag the handle to see what a pass through our color, sound design and motion pipeline actually changes.</p>
+    <div style="margin-top:40px;">
+      <div class="ba-card" id="ba-card">
+        <div class="ba-label l">RAW</div>
+        <div class="ba-label r">GRADED</div>
+        <div class="before">RAW FOOTAGE</div>
+        <div class="after-clip" id="ba-clip">
+          <div class="after-inner">GRADED + SOUND</div>
+        </div>
+        <div class="ba-handle" id="ba-handle"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DEMO GALLERY ===== -->
+<section id="gallery" data-section="Gallery">
+  <div class="wrap">
+    <div class="eyebrow">Demo Gallery</div>
+    <h2 class="section-title">Ten formats. One editing standard.</h2>
+    <p class="section-sub">Every demo ships with before/after, duration, editing style, motion graphics and a sound design preview.</p>
+    <div class="tabs" id="tabs"></div>
+    <div class="grid g-4" id="demo-grid"></div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services" data-section="Services" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="eyebrow">Services</div>
+    <h2 class="section-title">Everything after the record button.</h2>
+    <p class="section-sub">Pick a single service or bundle the full post-production pipeline.</p>
+    <div class="grid g-4" id="services-grid" style="margin-top:40px;"></div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="pricing" data-section="Pricing">
+  <div class="wrap">
+    <div class="eyebrow">Pricing</div>
+    <h2 class="section-title">Packages that scale with you.</h2>
+    <p class="section-sub">Transparent pricing. Upgrade, compare or save any plan for later — GST and coupons apply at checkout.</p>
+    <div class="grid g-3" id="pricing-grid" style="margin-top:44px;"></div>
+  </div>
+</section>
+
+<!-- ===== CUSTOM ORDER ===== -->
+<section id="order" data-section="Custom Order" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="eyebrow">Custom Order</div>
+    <h2 class="section-title">Build your own edit.</h2>
+    <p class="section-sub">Configure exactly what you need — the estimate updates live as you choose.</p>
+    <div class="order-grid" style="margin-top:40px;">
+      <div>
+        <div class="upload-box" id="upload-box">
+          📁 Drop your files here, or click to browse<br><span class="mono" style="font-size:11px;">MP4, MOV, ProRes — up to 5GB</span>
+        </div>
+        <div class="field-2col" style="margin-top:22px;">
+          <div class="field">
+            <label>Platform</label>
+            <select id="f-platform">
+              <option value="0">YouTube Long Form</option>
+              <option value="1">YouTube Shorts / Reels</option>
+              <option value="2">Podcast</option>
+              <option value="3">Wedding Film</option>
+              <option value="4">Corporate / Commercial</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Resolution</label>
+            <select id="f-res">
+              <option value="0">1080p HD</option>
+              <option value="1">2K</option>
+              <option value="2">4K UHD</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Frame Rate</label>
+            <select id="f-fps">
+              <option value="0">24 FPS (Cinematic)</option>
+              <option value="1">30 FPS</option>
+              <option value="2">60 FPS</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Delivery Time</label>
+            <select id="f-delivery">
+              <option value="0">Standard (5–7 days)</option>
+              <option value="1">Fast (48 hrs)</option>
+              <option value="2">Rush (24 hrs)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Editing Style</label>
+          <div class="chip-group" id="f-style">
+            <div class="chip" data-w="0">Fast-paced / Punchy</div>
+            <div class="chip" data-w="0">Cinematic</div>
+            <div class="chip" data-w="0">Minimal / Clean</div>
+            <div class="chip" data-w="0">Documentary</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Add-ons</label>
+          <div class="chip-group" id="f-addons">
+            <div class="chip" data-w="15">Subtitle Style</div>
+            <div class="chip" data-w="12">Caption Animation</div>
+            <div class="chip" data-w="10">Transition Pack</div>
+            <div class="chip" data-w="25">Motion Graphics</div>
+            <div class="chip" data-w="18">Background Music</div>
+            <div class="chip" data-w="14">Voice Enhancement</div>
+            <div class="chip" data-w="20">AI Voiceover</div>
+            <div class="chip" data-w="16">Thumbnail Design</div>
+            <div class="chip" data-w="22">Color Grading</div>
+            <div class="chip" data-w="30">Cinematic Look</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Notes for your editor</label>
+          <textarea id="f-notes" rows="4" placeholder="Reference links, brand guidelines, pacing notes..."></textarea>
+        </div>
+      </div>
+      <div>
+        <div class="summary-card">
+          <h4 class="display" style="font-size:20px; margin-bottom:16px;">Live Estimate</h4>
+          <div class="summary-line"><span>Base (platform + res + fps)</span><span id="s-base">₹0</span></div>
+          <div class="summary-line"><span>Delivery speed</span><span id="s-delivery">₹0</span></div>
+          <div class="summary-line"><span>Editing style</span><span id="s-style">₹0</span></div>
+          <div class="summary-line"><span>Add-ons (<span id="s-addon-count">0</span>)</span><span id="s-addons">₹0</span></div>
+          <div class="summary-total"><span>Estimate</span><span id="s-total">₹0</span></div>
+          <button class="btn btn-primary btn-block" style="margin-top:20px;" id="order-submit">Request This Edit →</button>
+          <p style="font-size:11.5px; color:var(--muted); margin-top:12px;">Final quote confirmed by an editor after reviewing your footage.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section data-section="Reviews">
+  <div class="wrap">
+    <div class="eyebrow">Client Reviews</div>
+    <h2 class="section-title">Trusted by creators who ship weekly.</h2>
+    <div class="grid g-3" style="margin-top:40px;" id="testi-grid"></div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section style="background:var(--bg-alt); padding-bottom:100px;">
+  <div class="wrap" style="max-width:820px;">
+    <div class="eyebrow">FAQ</div>
+    <h2 class="section-title">Questions, answered.</h2>
+    <div id="faq-list" style="margin-top:30px;"></div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand display" style="font-size:24px;">PRIYATAM<span style="color:var(--amber);">EDITS</span></div>
+        <p style="color:var(--muted); font-size:13.5px; margin-top:14px; max-width:280px; line-height:1.7;">Premium video editing for creators and brands. Cut, graded, and sound-designed by a real editorial team.</p>
+      </div>
+      <div>
+        <h5>Studio</h5>
+        <ul><li>Portfolio</li><li>Team</li><li>Careers</li><li>Blog</li></ul>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <ul><li>FAQs</li><li>Contact</li><li>Track an Order</li><li>Refund Policy</li><li><a href="admin/admin.html">Admin Login</a></li></ul>
+      </div>
+      <div>
+        <h5>Get updates</h5>
+        <div class="field"><input type="email" placeholder="you@studio.com"></div>
+        <button class="btn btn-primary btn-sm btn-block">Subscribe</button>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Priyatamedits. All rights reserved.</span>
+      <span>Made frame by frame.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== CART DRAWER ===== -->
+<div id="overlay"></div>
+<div id="cart-drawer">
+  <div class="cart-head">
+    <h3>Your Cart</h3>
+    <button class="icon-btn" id="cart-close">✕</button>
+  </div>
+  <div class="cart-body" id="cart-body"></div>
+  <div class="cart-foot">
+    <div class="coupon-row">
+      <input type="text" id="coupon-input" placeholder="Coupon code (try EDIT10)">
+      <button class="btn btn-ghost btn-sm" id="coupon-apply">Apply</button>
+    </div>
+    <div class="summary-line"><span>Subtotal</span><span id="c-subtotal">₹0</span></div>
+    <div class="summary-line"><span>Discount</span><span id="c-discount">− ₹0</span></div>
+    <div class="summary-line"><span>GST (18%)</span><span id="c-gst">₹0</span></div>
+    <div class="summary-line"><span>Delivery</span><span id="c-delivery">₹0</span></div>
+    <div class="summary-total"><span>Total</span><span id="c-total">₹0</span></div>
+    <button class="btn btn-primary btn-block" style="margin-top:16px;" id="checkout-btn">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- ===== CHECKOUT / INVOICE MODAL ===== -->
+<div id="modal-overlay">
+  <div class="modal-box" id="modal-box"></div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ============================================================
+   NOTE: This is a self-contained frontend demo.
+   Payments, invoices and order IDs below are simulated client-side
+   for UX/flow purposes — wire them to Razorpay/Stripe + a real
+   backend (Node/Express + PostgreSQL) before going live. See the
+   chat message for the backend checklist.
+============================================================ */
+
+/* ---------- LOADER ---------- */
+let lp = 0;
+const loaderInterval = setInterval(()=>{
+  lp += Math.random()*18;
+  if(lp>=100){ lp=100; clearInterval(loaderInterval);
+    gsap.to("#loader",{opacity:0,duration:.6,delay:.2,onComplete:()=>{document.getElementById('loader').style.display='none'; playHeroIntro();}});
+  }
+  document.getElementById('loaderbar').style.width = lp+'%';
+  const f = Math.floor(lp/100*24);
+  document.getElementById('loadertc').textContent = `00:00:${String(Math.floor(lp/4)).padStart(2,'0')}:${String(f).padStart(2,'0')}`;
+},180);
+
+/* ---------- HERO TEXT / PARTICLE CANVAS ---------- */
+function playHeroIntro(){
+  gsap.from("#hero .line span", {yPercent:110, duration:1, ease:"power4.out", stagger:.12});
+  gsap.from(".hero-tag", {opacity:0, y:10, duration:.8, delay:.1});
+  gsap.from(".hero-sub, .hero-ctas", {opacity:0, y:14, duration:.8, delay:.6});
+  gsap.from(".hero-stats .stat", {opacity:0, y:16, duration:.7, delay:.9, stagger:.08});
+}
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d');
+function resizeCanvas(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+let particles = Array.from({length:70}, ()=>({
+  x: Math.random()*innerWidth, y: Math.random()*innerHeight,
+  r: Math.random()*1.6+0.4, vy: Math.random()*0.25+0.05, o: Math.random()*0.5+0.1
+}));
+function renderParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.y -= p.vy;
+    if(p.y < -10) p.y = innerHeight+10;
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(232,163,61,${p.o})`;
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(renderParticles);
+}
+renderParticles();
+
+/* ---------- SCRUBBER (signature timeline nav) ---------- */
+const sections = document.querySelectorAll('section[data-section]');
+const track = document.getElementById('track');
+sections.forEach((sec,i)=>{
+  const kf = document.createElement('div');
+  kf.className='kf';
+  kf.style.left = (i/(sections.length-1)*100)+'%';
+  kf.innerHTML = `<div class="label">${sec.dataset.section}</div>`;
+  kf.addEventListener('click', ()=> sec.scrollIntoView({behavior:'smooth'}));
+  kf.dataset.id = sec.id;
+  track.appendChild(kf);
+});
+function updateScrubber(){
+  const scrollTop = window.scrollY;
+  const docH = document.body.scrollHeight - innerHeight;
+  const pct = Math.min(100, (scrollTop/docH)*100);
+  document.getElementById('scrub-fill').style.width = pct+'%';
+  const mins = Math.floor(pct/100*9);
+  const secs = Math.floor((pct/100*9*60)%60);
+  document.getElementById('scrub-tc').textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+  let current = sections[0];
+  sections.forEach(sec=>{ if(scrollTop >= sec.offsetTop - 200) current = sec; });
+  document.querySelectorAll('.kf').forEach(k=> k.classList.toggle('active', k.dataset.id===current.id));
+}
+window.addEventListener('scroll', updateScrubber);
+updateScrubber();
+
+/* ---------- THEME TOGGLE ---------- */
+document.getElementById('theme-toggle').addEventListener('click', ()=>{
+  const html = document.documentElement;
+  const cur = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', cur==='light' ? 'dark' : 'light');
+});
+
+/* ---------- COUNTERS ---------- */
+const counters = document.querySelectorAll('.counter');
+let countersDone = false;
+window.addEventListener('scroll', ()=>{
+  if(countersDone) return;
+  const hero = document.getElementById('home');
+  if(window.scrollY > 40){
+    countersDone = true;
+    counters.forEach(c=>{
+      const target = +c.dataset.target;
+      gsap.to(c, { innerText: target, duration: 1.6, ease:"power2.out", snap:{innerText:1},
+        onUpdate: function(){ c.textContent = Math.floor(c.innerText).toLocaleString(); } });
+    });
+  }
+});
+
+/* ---------- BEFORE / AFTER SLIDER ---------- */
+const baCard = document.getElementById('ba-card');
+const baClip = document.getElementById('ba-clip');
+const baHandle = document.getElementById('ba-handle');
+function setBA(pct){
+  pct = Math.max(2, Math.min(98, pct));
+  baClip.style.width = pct+'%';
+  baHandle.style.left = pct+'%';
+}
+let dragging=false;
+baCard.addEventListener('mousedown', ()=> dragging=true);
+window.addEventListener('mouseup', ()=> dragging=false);
+baCard.addEventListener('mousemove', (e)=>{
+  if(!dragging) return;
+  const rect = baCard.getBoundingClientRect();
+  setBA(((e.clientX-rect.left)/rect.width)*100);
+});
+baCard.addEventListener('touchmove', (e)=>{
+  const rect = baCard.getBoundingClientRect();
+  const x = e.touches[0].clientX;
+  setBA(((x-rect.left)/rect.width)*100);
+});
+setBA(50);
+
+/* ---------- DATA: DEMO GALLERY ---------- */
+const categories = ["Gaming","YouTube","Instagram Reels","Shorts","Podcasts","Wedding","Cinematic","Travel","Commercial","Documentary"];
+const demos = categories.map((cat,i)=>({
+  cat, title: `${cat} Edit Sample ${String(i+1).padStart(2,'0')}`,
+  dur: ["0:45","1:20","3:40","0:30","28:00","4:15","2:10","1:05","0:50","6:30"][i],
+  style: ["Fast-paced","Punchy Cuts","Clean & Minimal","Vertical Hook","Talking Head","Emotional","Cinematic Grade","Vibrant","Bold & Branded","Narrative"][i],
+  tags: ["Motion Graphics","Color Grade","Sound Design"]
+}));
+const grid = document.getElementById('demo-grid');
+const tabsEl = document.getElementById('tabs');
+function renderDemos(filter){
+  grid.innerHTML = demos.filter(d=> filter==='All' || d.cat===filter).map(d=>`
+    <div class="demo-card">
+      <div class="demo-thumb">
+        <span class="cat">${d.cat}</span>
+        <div class="play">▶</div>
+        <span class="dur mono">${d.dur}</span>
+      </div>
+      <div class="demo-body">
+        <h4>${d.title}</h4>
+        <div style="font-size:12px; color:var(--muted);">Style: ${d.style}</div>
+        <div class="demo-tags">${d.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+}
+["All",...categories].forEach(c=>{
+  const t = document.createElement('div');
+  t.className = 'tab'+(c==='All'?' active':'');
+  t.textContent = c;
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active'); renderDemos(c);
+  });
+  tabsEl.appendChild(t);
+});
+renderDemos('All');
+
+/* ---------- SERVICES ---------- */
+const services = [
+  ["Short Form Editing","Hook-first cuts for Reels & Shorts"],
+  ["Long Form Editing","Full YouTube episode edits"],
+  ["Podcast Editing","Multi-cam + audio cleanup"],
+  ["Wedding Editing","Cinematic highlight films"],
+  ["Corporate Videos","Brand & internal comms"],
+  ["Real Estate Videos","Property walkthroughs"],
+  ["Documentary Editing","Long-form narrative structure"],
+  ["Motion Graphics","Custom animated overlays"],
+  ["Logo Animation","Branded intro stingers"],
+  ["Intro / Outro","Channel branding packages"],
+  ["Thumbnail Design","Click-worthy static art"],
+  ["Color Grading","Cinematic LUT & grade"],
+  ["Sound Design","Foley, mix & master"],
+  ["YouTube Management","End-to-end channel ops"],
+];
+document.getElementById('services-grid').innerHTML = services.map(([t,d])=>`
+  <div class="glass-card"><div class="glow"></div>
+    <h4 style="font-size:16px; margin-bottom:8px;">${t}</h4>
+    <p style="font-size:13px; color:var(--muted); line-height:1.6;">${d}</p>
+  </div>`).join('');
+
+/* ---------- PRICING ---------- */
+const plans = [
+  {id:'basic', name:'Basic', price:4999, tag:null, feats:["3 Videos","HD Export","Basic Color","2 Revisions"]},
+  {id:'standard', name:'Standard', price:12999, tag:'Most Popular', feats:["10 Videos","Motion Graphics","Sound Effects","Unlimited Revisions"]},
+  {id:'premium', name:'Premium', price:29999, tag:'Best Value', feats:["Unlimited Videos","Dedicated Editor","Priority Delivery","Cinematic Editing","24/7 Support"]},
+];
+document.getElementById('pricing-grid').innerHTML = plans.map(p=>`
+  <div class="price-card ${p.tag?'featured':''}">
+    ${p.tag?`<div class="badge">${p.tag}</div>`:''}
+    <h3>${p.name}</h3>
+    <div class="amt">₹${p.price.toLocaleString()}<span>/mo</span></div>
+    <ul>${p.feats.map(f=>`<li>${f}</li>`).join('')}</ul>
+    <div class="price-actions">
+      <div class="row">
+        <button class="btn btn-ghost btn-sm" style="flex:1;" onclick="addToCart('${p.id}')">Add to Cart</button>
+        <button class="btn btn-primary btn-sm" style="flex:1;" onclick="buyNow('${p.id}')">Buy Now</button>
+      </div>
+      <div class="link-row">
+        <button class="link-btn" onclick="wishlist('${p.name}')">♡ Wishlist</button>
+        <button class="link-btn" onclick="compare('${p.name}')">⇄ Compare</button>
+        <button class="link-btn" onclick="saveLater('${p.id}')">⏱ Save for later</button>
+      </div>
+    </div>
+  </div>`).join('');
+
+/* ---------- CART LOGIC ---------- */
+let cart = [];
+const GST = 0.18;
+const DELIVERY_FLAT = 199;
+let discount = 0;
+
+function findPlan(id){ return plans.find(p=>p.id===id); }
+function addToCart(id, silent){
+  const p = findPlan(id);
+  const existing = cart.find(c=>c.id===id);
+  if(existing) existing.qty++;
+  else cart.push({id:p.id, name:p.name, price:p.price, qty:1});
+  renderCart();
+  if(!silent){ showToast(`${p.name} added to cart`); openCart(); }
+}
+function buyNow(id){ addToCart(id, true); openCart(); setTimeout(openCheckout, 300); }
+function wishlist(name){ showToast(`${name} added to wishlist ♡`); }
+function compare(name){ showToast(`Comparing ${name} with other plans`); }
+function saveLater(id){ showToast(`${findPlan(id).name} saved for later`); }
+
+function renderCart(){
+  const body = document.getElementById('cart-body');
+  document.getElementById('cart-count').textContent = cart.reduce((a,c)=>a+c.qty,0);
+  if(cart.length===0){ body.innerHTML = `<div class="empty-cart">Your cart is empty.<br>Add a package to get started.</div>`; }
+  else {
+    body.innerHTML = cart.map(c=>`
+      <div class="cart-item">
+        <div>
+          <b style="font-size:14px;">${c.name} Package</b>
+          <div class="qty">
+            <button class="qty-btn" onclick="changeQty('${c.id}',-1)">−</button>
+            <span class="mono" style="font-size:12.5px;">${c.qty}</span>
+            <button class="qty-btn" onclick="changeQty('${c.id}',1)">+</button>
+            <button class="link-btn" onclick="removeItem('${c.id}')" style="margin-left:10px;">Remove</button>
+          </div>
+        </div>
+        <div class="mono" style="font-size:13px;">₹${(c.price*c.qty).toLocaleString()}</div>
+      </div>`).join('');
+  }
+  const subtotal = cart.reduce((a,c)=>a+c.price*c.qty,0);
+  const gst = subtotal*GST;
+  const delivery = cart.length? DELIVERY_FLAT : 0;
+  const total = subtotal + gst + delivery - discount;
+  document.getElementById('c-subtotal').textContent = '₹'+subtotal.toLocaleString();
+  document.getElementById('c-discount').textContent = '− ₹'+discount.toLocaleString();
+  document.getElementById('c-gst').textContent = '₹'+Math.round(gst).toLocaleString();
+  document.getElementById('c-delivery').textContent = '₹'+delivery.toLocaleString();
+  document.getElementById('c-total').textContent = '₹'+Math.max(0,Math.round(total)).toLocaleString();
+}
+function changeQty(id, delta){
+  const item = cart.find(c=>c.id===id);
+  item.qty += delta;
+  if(item.qty<=0) cart = cart.filter(c=>c.id!==id);
+  renderCart();
+}
+function removeItem(id){ cart = cart.filter(c=>c.id!==id); renderCart(); showToast('Item removed'); }
+
+document.getElementById('coupon-apply').addEventListener('click', ()=>{
+  const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+  const subtotal = cart.reduce((a,c)=>a+c.price*c.qty,0);
+  if(code==='EDIT10'){ discount = Math.round(subtotal*0.10); showToast('Coupon applied — 10% off'); }
+  else if(code===''){ showToast('Enter a coupon code'); return; }
+  else { discount = 0; showToast('Invalid coupon code'); }
+  renderCart();
+});
+
+function openCart(){ document.getElementById('cart-drawer').classList.add('show'); document.getElementById('overlay').classList.add('show'); }
+function closeCart(){ document.getElementById('cart-drawer').classList.remove('show'); document.getElementById('overlay').classList.remove('show'); }
+document.getElementById('cart-open').addEventListener('click', openCart);
+document.getElementById('cart-close').addEventListener('click', closeCart);
+document.getElementById('overlay').addEventListener('click', closeCart);
+renderCart();
+
+/* ---------- CHECKOUT MODAL (simulated) ---------- */
+let selectedPay = 'Razorpay (UPI/Cards)';
+function openCheckout(){
+  if(cart.length===0){ showToast('Your cart is empty'); return; }
+  const subtotal = cart.reduce((a,c)=>a+c.price*c.qty,0);
+  const gst = subtotal*GST; const delivery = DELIVERY_FLAT;
+  const total = Math.max(0, Math.round(subtotal+gst+delivery-discount));
+  document.getElementById('modal-box').innerHTML = `
+    <h3>Checkout</h3>
+    <p>Choose a payment method to complete your order.</p>
+    <div class="pay-methods" id="pay-methods">
+      <div class="sel" data-m="Razorpay (UPI/Cards)">Razorpay (UPI)</div>
+      <div data-m="Stripe (Card)">Stripe (Card)</div>
+      <div data-m="Net Banking">Net Banking</div>
+      <div data-m="Debit Card">Debit Card</div>
+    </div>
+    <div class="invoice-line"><span>Subtotal</span><span>₹${subtotal.toLocaleString()}</span></div>
+    <div class="invoice-line"><span>GST (18%)</span><span>₹${Math.round(gst).toLocaleString()}</span></div>
+    <div class="invoice-line"><span>Delivery</span><span>₹${delivery}</span></div>
+    <div class="invoice-line"><span>Discount</span><span>− ₹${discount.toLocaleString()}</span></div>
+    <div class="invoice-line" style="font-size:16px; color:var(--text); border-top:1px solid var(--line); padding-top:10px; margin-top:6px;"><span>Total</span><span>₹${total.toLocaleString()}</span></div>
+    <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="payNow(${total})">Pay ₹${total.toLocaleString()}</button>
+  `;
+  document.getElementById('modal-overlay').classList.add('show');
+  document.querySelectorAll('#pay-methods div').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      document.querySelectorAll('#pay-methods div').forEach(x=>x.classList.remove('sel'));
+      el.classList.add('sel'); selectedPay = el.dataset.m;
+    });
+  });
+}
+function payNow(total){
+  const orderId = 'EVS-'+Math.floor(100000+Math.random()*900000);
+  document.getElementById('modal-box').innerHTML = `
+    <h3>Payment Successful ✓</h3>
+    <p>Paid via ${selectedPay}. A confirmation email with your invoice has been sent.</p>
+    <div class="invoice-line"><span>Order ID</span><span>${orderId}</span></div>
+    <div class="invoice-line"><span>Amount Paid</span><span>₹${total.toLocaleString()}</span></div>
+    <div class="invoice-line"><span>Status</span><span>Confirmed</span></div>
+    <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="closeModal()">Done</button>
+  `;
+  cart = []; discount = 0; renderCart();
+}
+function closeModal(){ document.getElementById('modal-overlay').classList.remove('show'); closeCart(); }
+document.getElementById('checkout-btn').addEventListener('click', openCheckout);
+document.getElementById('modal-overlay').addEventListener('click', (e)=>{ if(e.target.id==='modal-overlay') closeModal(); });
+
+/* ---------- CUSTOM ORDER ESTIMATOR ---------- */
+const basePrices = { platform:[2999,1499,3999,14999,8999], res:[0,800,2200], fps:[0,500,900], delivery:[0,1500,3500] };
+let selectedStyleWeight = 0;
+document.querySelectorAll('#f-style .chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('#f-style .chip').forEach(c=>c.classList.remove('on'));
+    chip.classList.add('on');
+    selectedStyleWeight = chip.textContent.includes('Cinematic') ? 1800 : chip.textContent.includes('Documentary') ? 1200 : 600;
+    calcEstimate();
+  });
+});
+document.querySelectorAll('#f-addons .chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{ chip.classList.toggle('on'); calcEstimate(); });
+});
+['f-platform','f-res','f-fps','f-delivery'].forEach(id=> document.getElementById(id).addEventListener('change', calcEstimate));
+
+function calcEstimate(){
+  const plat = +document.getElementById('f-platform').value;
+  const res = +document.getElementById('f-res').value;
+  const fps = +document.getElementById('f-fps').value;
+  const del = +document.getElementById('f-delivery').value;
+  const base = basePrices.platform[plat] + basePrices.res[res] + basePrices.fps[fps];
+  const deliveryCost = basePrices.delivery[del];
+  const addons = [...document.querySelectorAll('#f-addons .chip.on')];
+  const addonTotal = addons.reduce((a,c)=> a + (+c.dataset.w*10), 0);
+  const total = base + deliveryCost + selectedStyleWeight + addonTotal;
+  document.getElementById('s-base').textContent = '₹'+base.toLocaleString();
+  document.getElementById('s-delivery').textContent = '₹'+deliveryCost.toLocaleString();
+  document.getElementById('s-style').textContent = '₹'+selectedStyleWeight.toLocaleString();
+  document.getElementById('s-addon-count').textContent = addons.length;
+  document.getElementById('s-addons').textContent = '₹'+addonTotal.toLocaleString();
+  document.getElementById('s-total').textContent = '₹'+total.toLocaleString();
+}
+calcEstimate();
+document.getElementById('order-submit').addEventListener('click', ()=>{
+  showToast('Request sent! An editor will confirm your quote shortly.');
+});
+document.getElementById('upload-box').addEventListener('click', ()=> showToast('File picker would open here (backend upload required)'));
+
+/* ---------- TESTIMONIALS ---------- */
+const testimonials = [
+  ["Rhea Kapoor","YouTube Creator, 480K subs","Priyatamedits turned my raw vlogs into something I'm actually proud to post. Retention went up within two videos."],
+  ["Aman Verma","Podcast Host","Multi-cam podcast editing used to take me a full weekend. Now it's a Monday morning download."],
+  ["Studio Noir Films","Wedding Cinematography","Their color grading matches our shooting style so closely, clients think we did it in-house."],
+];
+document.getElementById('testi-grid').innerHTML = testimonials.map(([n,r,q])=>`
+  <div class="testi-card">
+    <div class="stars">★★★★★</div>
+    <p>"${q}"</p>
+    <div class="testi-who"><div class="avatar"></div><div><b>${n}</b><span>${r}</span></div></div>
+  </div>`).join('');
+
+/* ---------- FAQ ---------- */
+const faqs = [
+  ["How fast is turnaround?","Standard delivery is 5–7 days. Fast and rush options (48hr / 24hr) are available at checkout for an added fee."],
+  ["What formats do you accept?","We accept MP4, MOV and ProRes footage up to 5GB per upload, with cloud storage support for larger projects."],
+  ["Can I request revisions?","Yes — every plan includes revisions, with Standard and Premium offering unlimited rounds."],
+  ["Do you sign NDAs?","Yes, we're happy to sign an NDA before you share footage, especially for brand or unreleased content."],
+];
+document.getElementById('faq-list').innerHTML = faqs.map((f,i)=>`
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q">${f[0]}<span class="plus mono">+</span></div>
+    <div class="faq-a">${f[1]}</div>
+  </div>`).join('');
+
+/* ---------- TOAST ---------- */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> t.classList.remove('show'), 2600);
+}
+
+/* ---------- SCROLL REVEALS ---------- */
+gsap.registerPlugin(ScrollTrigger);
+document.querySelectorAll('.glass-card, .demo-card, .price-card, .testi-card, .ba-card').forEach(el=>{
+  gsap.from(el, {
+    opacity:0, y:30, duration:.7, ease:"power2.out",
+    scrollTrigger:{ trigger: el, start:"top 90%" }
+  });
+});
+</script>
+</body>
+</html>
